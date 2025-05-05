@@ -33,7 +33,11 @@ watch(() => jsonStore.apiResponse, (newValue) => {
 <template>
   <div v-if="jsonStore.apiResponse || jsonStore.error" class="api-response-container">
     <button class="response-toggle" @click="toggleResponsePanel">
-      <span v-if="jsonStore.apiResponseStatus">Response ({{ jsonStore.apiResponseStatus }})</span>
+      <span v-if="jsonStore.apiResponseStatus">Response (
+        <span :style="{ color: jsonStore.apiResponseStatus === 200 ? 'greenyellow' : 'red' }">
+          {{ jsonStore.apiResponseStatus }}
+        </span>
+        )</span>
       <span v-else>Response</span>
       <span class="toggle-icon">{{ showResponse ? '▼' : '▶' }}</span>
     </button>

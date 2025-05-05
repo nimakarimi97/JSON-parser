@@ -46,6 +46,7 @@ function adjustTextareaHeight() {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
 
   .input-label {
     margin-bottom: var(--spacing-sm);
@@ -54,6 +55,7 @@ function adjustTextareaHeight() {
 
   .textarea {
     min-height: 300px;
+    max-height: 83%;
     resize: vertical;
     font-family: 'Roboto Mono', monospace;
     line-height: 1.5;

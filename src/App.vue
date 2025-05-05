@@ -67,7 +67,6 @@ function handleKeyDown(e: KeyboardEvent) {
 
 <style lang="scss" scoped>
 .app-container {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   padding: var(--spacing-md);
@@ -115,6 +114,7 @@ main {
       flex: 1;
       display: flex;
       flex-direction: column;
+      max-height: 60vh;
 
       h2 {
         margin-top: 0;
