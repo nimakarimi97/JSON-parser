@@ -32,6 +32,9 @@ const processTextWithLineNumbers = computed(() => {
   if (!props.json)
     return 'Formatted JSON will appear here...'
 
+  if (typeof props.json === 'object')
+    return props.json
+
   const lines = props.json.split('\n')
   return lines.join('\n')
 })

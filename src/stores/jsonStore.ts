@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
@@ -16,7 +17,7 @@ export const useJsonStore = defineStore('json', () => {
   const customHeaders = ref<Record<string, string>>({
     'Content-Type': 'application/json',
   })
-  const apiResponse = ref<string>('')
+  const apiResponse = ref<{ status: number, data: any } | null>(null)
   const apiResponseStatus = ref<number | null>(null)
   const showApiConfig = ref<boolean>(false)
 
@@ -65,31 +66,16 @@ export const useJsonStore = defineStore('json', () => {
 
     isLoading.value = true
     error.value = null
-    apiResponse.value = ''
+    apiResponse.value = null
     apiResponseStatus.value = null
 
     try {
-      const response = await fetch(apiUrl.value, {
-        method: 'POST',
-        headers: customHeaders.value,
-        body: sourceJson.value,
-      })
+      apiResponse.value = await axios.post(apiUrl.value, sourceJson.value, { headers: customHeaders.value })
+      apiResponseStatus.value = apiResponse.value.status
+      formattedJson.value = JSON.stringify(apiResponse.value.data, null, 2)
 
-      apiResponseStatus.value = response.status
-      const responseText = await response.text()
-
-      try {
-        // Try to parse and format the response if it's JSON
-        const responseJson = JSON.parse(responseText)
-        apiResponse.value = JSON.stringify(responseJson, null, 2)
-      }
-      catch {
-        // If it's not JSON, just display the raw text
-        apiResponse.value = responseText
-      }
-
-      if (!response.ok) {
-        error.value = `API error: ${response.status} ${response.statusText}`
+      if (apiResponse.value.status !== 200) {
+        error.value = `API error: ${apiResponse.value.status} ${apiResponse.value.data}`
       }
     }
     catch (e) {
@@ -113,7 +99,7 @@ export const useJsonStore = defineStore('json', () => {
     sourceJson.value = ''
     formattedJson.value = ''
     error.value = null
-    apiResponse.value = ''
+    apiResponse.value = null
     apiResponseStatus.value = null
   }
 
