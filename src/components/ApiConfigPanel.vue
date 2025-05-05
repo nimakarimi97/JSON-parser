@@ -14,7 +14,9 @@ function saveConfig() {
 
   // Validate URL
   try {
-    new URL(apiUrl.value)
+    if (!/^https?:\/\/.+/.test(apiUrl.value)) {
+      throw new Error('Invalid URL')
+    }
   }
   catch {
     validationError.value = 'Please enter a valid URL'

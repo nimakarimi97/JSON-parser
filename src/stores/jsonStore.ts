@@ -12,7 +12,7 @@ export const useJsonStore = defineStore('json', () => {
   const formattedJson = ref<string>('')
   const error = ref<string | null>(null)
   const isLoading = ref<boolean>(false)
-  const apiUrl = ref<string>('https://jsonplaceholder.typicode.com/posts')
+  const apiUrl = ref<string>('https://jolcatania.tim.it/live-mobility-data/api/parse')
   const customHeaders = ref<Record<string, string>>({
     'Content-Type': 'application/json',
   })

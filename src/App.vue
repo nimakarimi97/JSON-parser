@@ -27,11 +27,6 @@ function handleKeyDown(e: KeyboardEvent) {
       <div class="editor-container">
         <div class="panel source-panel">
           <h2>Source JSON</h2>
-          <JsonInput
-            v-model="jsonStore.sourceJson" placeholder="Paste your JSON here..."
-            @format="jsonStore.formatJson"
-          />
-
           <div class="button-group">
             <button :disabled="!jsonStore.sourceJson" @click="jsonStore.formatJson">
               Format JSON
@@ -50,6 +45,11 @@ function handleKeyDown(e: KeyboardEvent) {
               Clear All
             </button>
           </div>
+
+          <JsonInput
+            v-model="jsonStore.sourceJson" placeholder="Paste your JSON here..."
+            @format="jsonStore.formatJson"
+          />
         </div>
 
         <div class="panel result-panel">
@@ -128,7 +128,7 @@ main {
       display: flex;
       flex-wrap: wrap;
       gap: var(--spacing-sm);
-      margin-top: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
 
       @media (max-width: 768px) {
         button {

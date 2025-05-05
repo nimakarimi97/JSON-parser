@@ -27,29 +27,13 @@ async function copyToClipboard() {
   }
 }
 
-// Calculate the width needed for line numbers based on total lines
-function getLineNumberWidth(text: string): number {
-  const lines = text.split('\n')
-  return Math.max(lines.length.toString().length, 2) // Minimum width of 2
-}
-
-// Format the line number with proper padding
-function formatLineNumber(num: number, width: number): string {
-  return num.toString().padStart(width, ' ')
-}
-
 // Process text with line numbers
 const processTextWithLineNumbers = computed(() => {
   if (!props.json)
     return 'Formatted JSON will appear here...'
 
   const lines = props.json.split('\n')
-  const width = getLineNumberWidth(props.json)
-
-  return lines.map((line, index) => {
-    const lineNumber = formatLineNumber(index + 1, width)
-    return `${lineNumber} │ ${line}`
-  }).join('\n')
+  return lines.join('\n')
 })
 
 // Apply syntax highlighting when JSON changes
@@ -72,12 +56,7 @@ onMounted(() => {
   <div class="json-output">
     <div class="output-header">
       <h3>Formatted JSON</h3>
-      <button
-        class="copy-btn"
-        :disabled="!json"
-        :class="{ copied }"
-        @click="copyToClipboard"
-      >
+      <button class="copy-btn" :disabled="!json" :class="{ copied }" @click="copyToClipboard">
         {{ copied ? 'Copied!' : 'Copy' }}
       </button>
     </div>
