@@ -1,15 +1,15 @@
 <script setup lang="ts">
+import Prism from 'prismjs'
 import { ref, watch } from 'vue'
 import { useJsonStore } from '../stores/jsonStore'
-import Prism from 'prismjs'
 
 const jsonStore = useJsonStore()
 const showResponse = ref(false)
 const responseRef = ref<HTMLElement | null>(null)
 
-const toggleResponsePanel = () => {
+function toggleResponsePanel() {
   showResponse.value = !showResponse.value
-  
+
   if (showResponse.value && jsonStore.apiResponse) {
     setTimeout(() => {
       if (responseRef.value) {
@@ -31,18 +31,18 @@ watch(() => jsonStore.apiResponse, (newValue) => {
 </script>
 
 <template>
-  <div class="api-response-container" v-if="jsonStore.apiResponse || jsonStore.error">
+  <div v-if="jsonStore.apiResponse || jsonStore.error" class="api-response-container">
     <button class="response-toggle" @click="toggleResponsePanel">
       <span v-if="jsonStore.apiResponseStatus">Response ({{ jsonStore.apiResponseStatus }})</span>
       <span v-else>Response</span>
       <span class="toggle-icon">{{ showResponse ? '▼' : '▶' }}</span>
     </button>
-    
-    <div class="response-panel" v-if="showResponse">
+
+    <div v-if="showResponse" class="response-panel">
       <div v-if="jsonStore.error" class="error-message">
         {{ jsonStore.error }}
       </div>
-      
+
       <div v-else class="response-content">
         <pre><code ref="responseRef" class="language-json">{{ jsonStore.apiResponse }}</code></pre>
       </div>
@@ -56,7 +56,7 @@ watch(() => jsonStore.apiResponse, (newValue) => {
   border-radius: var(--border-radius-md);
   background-color: var(--color-surface);
   overflow: hidden;
-  
+
   .response-toggle {
     width: 100%;
     display: flex;
@@ -68,30 +68,30 @@ watch(() => jsonStore.apiResponse, (newValue) => {
     color: var(--color-on-surface);
     font-weight: 500;
     cursor: pointer;
-    
+
     &:hover {
       background-color: rgba(255, 255, 255, 0.05);
     }
-    
+
     .toggle-icon {
       font-size: 0.8em;
       transition: transform var(--transition-fast);
     }
   }
-  
+
   .response-panel {
     padding: var(--spacing-md);
     max-height: 300px;
     overflow: auto;
-    
+
     .error-message {
       color: var(--color-error);
     }
-    
+
     .response-content {
       pre {
         margin: 0;
-        
+
         code {
           font-family: 'Roboto Mono', monospace;
         }

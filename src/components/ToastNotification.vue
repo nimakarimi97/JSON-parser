@@ -17,22 +17,22 @@ watch(
       clearTimeout(timeoutId)
       timeoutId = null
     }
-    
+
     if (newVal) {
       visible.value = true
       timeoutId = window.setTimeout(() => {
         visible.value = false
       }, props.duration || 3000)
     }
-  }
+  },
 )
 </script>
 
 <template>
   <Transition name="toast-fade">
-    <div 
-      v-if="visible && message" 
-      class="toast" 
+    <div
+      v-if="visible && message"
+      class="toast"
       :class="type"
     >
       {{ message }}
@@ -52,11 +52,11 @@ watch(
   color: var(--color-on-surface);
   box-shadow: var(--shadow-elevation-3);
   z-index: 1000;
-  
+
   &.success {
     border-left: 4px solid var(--color-success);
   }
-  
+
   &.error {
     border-left: 4px solid var(--color-error);
   }
@@ -64,7 +64,9 @@ watch(
 
 .toast-fade-enter-active,
 .toast-fade-leave-active {
-  transition: opacity var(--transition-normal), transform var(--transition-normal);
+  transition:
+    opacity var(--transition-normal),
+    transform var(--transition-normal);
 }
 
 .toast-fade-enter-from,

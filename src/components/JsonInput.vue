@@ -9,7 +9,7 @@ defineProps<{
 
 const emit = defineEmits(['update:modelValue', 'format'])
 
-const handleInput = (e: Event) => {
+function handleInput(e: Event) {
   const target = e.target as HTMLTextAreaElement
   emit('update:modelValue', target.value)
 }
@@ -17,7 +17,7 @@ const handleInput = (e: Event) => {
 const textareaRef = ref<HTMLTextAreaElement | null>(null)
 
 // Resize textarea to fit content
-const adjustTextareaHeight = () => {
+function adjustTextareaHeight() {
   if (textareaRef.value) {
     textareaRef.value.style.height = 'auto'
     textareaRef.value.style.height = `${textareaRef.value.scrollHeight}px`
@@ -32,12 +32,12 @@ const adjustTextareaHeight = () => {
       ref="textareaRef"
       class="textarea"
       :value="modelValue"
-      @input="handleInput"
-      @keydown.tab.prevent="emit('format')"
       :placeholder="placeholder || 'Paste your JSON here...'"
       spellcheck="false"
+      @input="handleInput"
+      @keydown.tab.prevent="emit('format')"
       @keyup="adjustTextareaHeight"
-    ></textarea>
+    />
   </div>
 </template>
 
@@ -46,12 +46,12 @@ const adjustTextareaHeight = () => {
   display: flex;
   flex-direction: column;
   width: 100%;
-  
+
   .input-label {
     margin-bottom: var(--spacing-sm);
     font-weight: 500;
   }
-  
+
   .textarea {
     min-height: 300px;
     resize: vertical;
@@ -60,7 +60,7 @@ const adjustTextareaHeight = () => {
     tab-size: 2;
     overflow-y: auto;
     transition: border-color var(--transition-fast);
-    
+
     &:focus {
       outline: none;
       border-color: var(--color-primary);

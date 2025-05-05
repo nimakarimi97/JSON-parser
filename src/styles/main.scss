@@ -9,38 +9,50 @@
   --color-error: #cf6679;
   --color-success: #4caf50;
   --color-warning: #ff9800;
-  
+
   // Text colors
   --color-on-background: rgba(255, 255, 255, 0.87);
   --color-on-surface: rgba(255, 255, 255, 0.87);
   --color-on-primary: #ffffff;
   --color-on-secondary: #000000;
-  
+
   // Spacing
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
   --spacing-xl: 32px;
-  
+
   // Borders and shadows
   --border-radius-sm: 4px;
   --border-radius-md: 8px;
   --border-radius-lg: 12px;
   --shadow-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   --shadow-elevation-2: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
-  --shadow-elevation-3: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
-  
+  --shadow-elevation-3: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+
   // Animation
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
   --transition-slow: 350ms ease;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
   background-color: var(--color-background);
   color: var(--color-on-background);
   line-height: 1.5;
@@ -68,45 +80,47 @@ button {
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
   box-shadow: var(--shadow-elevation-1);
-  
+
   &:hover {
     background-color: var(--color-primary-variant);
     transform: translateY(-1px);
     box-shadow: var(--shadow-elevation-2);
   }
-  
+
   &:active {
     transform: translateY(0);
     box-shadow: var(--shadow-elevation-1);
   }
-  
+
   &:disabled {
     background-color: rgba(255, 255, 255, 0.12);
     color: rgba(255, 255, 255, 0.38);
     cursor: not-allowed;
     box-shadow: none;
-    
+
     &:hover {
       transform: none;
     }
   }
-  
+
   &.secondary {
     background-color: var(--color-secondary);
     color: var(--color-on-secondary);
-    
+
     &:hover {
       opacity: 0.9;
     }
   }
-  
+
   &.text {
     background-color: transparent;
     color: var(--color-primary-variant);
     box-shadow: none;
-    
+
     &:hover {
       background-color: rgba(187, 134, 252, 0.08);
       box-shadow: none;
@@ -121,7 +135,8 @@ button {
   box-shadow: var(--shadow-elevation-1);
 }
 
-input, textarea {
+input,
+textarea {
   background-color: var(--color-surface-variant);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--border-radius-md);
@@ -131,7 +146,7 @@ input, textarea {
   font-size: 0.9rem;
   width: 100%;
   box-sizing: border-box;
-  
+
   &:focus {
     outline: 2px solid var(--color-primary-variant);
     border-color: transparent;
@@ -153,10 +168,10 @@ input, textarea {
 // JSON line number styles
 .line-numbers {
   counter-reset: line;
-  
+
   code {
     counter-increment: line;
-    
+
     &::before {
       content: counter(line);
       display: inline-block;
@@ -170,8 +185,8 @@ input, textarea {
 }
 
 // Prism syntax highlighting customization for dark theme
-code[class*="language-"],
-pre[class*="language-"] {
+code[class*='language-'],
+pre[class*='language-'] {
   color: #d4d4d4;
   background: none;
   font-family: 'Roboto Mono', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
@@ -254,15 +269,15 @@ pre[class*="language-"] {
   z-index: 1000;
   opacity: 0;
   transition: opacity var(--transition-normal);
-  
+
   &.show {
     opacity: 1;
   }
-  
+
   &.success {
     border-left: 4px solid var(--color-success);
   }
-  
+
   &.error {
     border-left: 4px solid var(--color-error);
   }
