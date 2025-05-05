@@ -1,18 +1,27 @@
+# Stage 1: Build
 FROM node:23-slim AS build
 
+# Set working directory
 WORKDIR /app
-RUN corepack enable
 
-COPY .npmrc package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
-    pnpm install --frozen-lockfile
+# Copy package files and install dependencies
+COPY package.json pnpm-lock.yaml ./
+RUN npm install -g pnpm && pnpm install
 
+# Copy the rest of the application files
 COPY . .
-RUN pnpm build
 
-FROM nginx:stable-alpine AS production-stage
+# Build the application
+RUN pnpm run build
 
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+# Stage 2: Serve
+FROM nginx:stable-alpine AS production
+
+# Copy built files to nginx
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Expose port 80
 EXPOSE 80
 
+# Start nginx
 CMD ["nginx", "-g", "daemon off;"]
