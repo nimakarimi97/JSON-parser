@@ -17,8 +17,7 @@ function saveConfig() {
     if (!/^https?:\/\/.+/.test(apiUrl.value)) {
       throw new Error('Invalid URL')
     }
-  }
-  catch {
+  } catch {
     validationError.value = 'Please enter a valid URL'
     return
   }
@@ -36,8 +35,7 @@ function saveConfig() {
     })
 
     jsonStore.toggleApiConfig()
-  }
-  catch (e) {
+  } catch (e) {
     console.error(e)
     validationError.value = 'Headers must be a valid JSON object'
   }

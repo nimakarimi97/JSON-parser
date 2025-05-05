@@ -28,8 +28,7 @@ export const useJsonStore = defineStore('json', () => {
     try {
       JSON.parse(sourceJson.value)
       return true
-    }
-    catch {
+    } catch {
       return false
     }
   })
@@ -51,8 +50,7 @@ export const useJsonStore = defineStore('json', () => {
     try {
       const parsed = JSON.parse(sourceJson.value)
       formattedJson.value = JSON.stringify(parsed, null, 2)
-    }
-    catch (e) {
+    } catch (e) {
       error.value = e instanceof Error ? e.message : 'Invalid JSON'
       formattedJson.value = ''
     }
@@ -77,11 +75,9 @@ export const useJsonStore = defineStore('json', () => {
       if (apiResponse.value.status !== 200) {
         error.value = `API error: ${apiResponse.value.status} ${apiResponse.value.data}`
       }
-    }
-    catch (e) {
+    } catch (e) {
       error.value = e instanceof Error ? e.message : 'Network error'
-    }
-    finally {
+    } finally {
       isLoading.value = false
     }
   }
